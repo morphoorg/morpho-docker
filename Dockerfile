@@ -1,9 +1,9 @@
 FROM homebrew/ubuntu20.04 AS brew-base
 
-ENV REPO_DIR=~/repo
-ENV BUILD_DIR=~/build
-ENV INSTALL_DIR=~/install
-ENV SCRATCH_DIR=~/scratch
+ENV REPO_DIR=/home/linuxbrew/repo
+ENV BUILD_DIR=/home/linuxbrew/build
+ENV INSTALL_DIR=/home/linuxbrew/install
+ENV SCRATCH_DIR=/home/linuxbrew/scratch
 
 RUN mkdir -p $REPO_DIR \
     && mkdir -p $BUILD_DIR \
