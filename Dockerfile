@@ -1,6 +1,5 @@
 FROM homebrew/ubuntu20.04 AS brew-base
 
-USER root
 
 ENV REPO_DIR=/work/repo
 ENV BUILD_DIR=/work/build
@@ -15,16 +14,19 @@ RUN mkdir -p $REPO_DIR \
 ENV PATH=$INSTALL_DIR/bin:$INSTALL_DIR/sbin:$PATH
 ENV LD_LIBRARY_PATH=$INSTALL_DIR/lib64:$INSTALL_DIR/lib64:$LD_LIBRARY_PATH
 
+USER root
+
 # dependencies for root that cannot be picked up from brew
 RUN apt-get update -y &&\
     apt-get install -y libx11-dev libxft-dev libxext-dev liblapack-dev
+
+USER linuxbrew
 
 ENV LANG=en_US.UTF-8 \
 	PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH \
     LD_LIBRARY_PATH=/home/linuxbrew/.linuxbrew/lib:$LD_LIBRARY_PATH \
 	SHELL=/bin/bash
 
-USER linuxbrew
 
 RUN brew update && brew upgrade
 # Morpho dependencies for options build
