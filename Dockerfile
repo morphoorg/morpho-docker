@@ -30,8 +30,9 @@ ENV LANG=en_US.UTF-8 \
 
 RUN brew update && brew upgrade
 # Morpho dependencies for options build
-RUN brew install wget vim cmake python3
-
+# ROOT 6.24.02 needs python 3.8
+RUN brew install wget vim cmake python@3.8 
+ 
 # RUN echo ". /home/linuxbrew/.linuxbrew/bin/thisroot.sh" >> ~/.bash_profile
 
 RUN cd $INSTALL_DIR &&\
@@ -40,5 +41,7 @@ RUN cd $INSTALL_DIR &&\
     cd $HOME &&\
     rm -rf $INSTALL_DIR/root_v6.24.02.Linux-ubuntu20-x86_64-gcc9.3.tar.gz
 
-# RUN echo ". /home/linuxbrew/.linuxbrew/bin/thisroot.sh" >> ~/.bash_profile
+SHELL ["/bin/bash", "-c"]
+RUN echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.8/bin:$PATH"' >> /home/linuxbrew/.bash_profile &&\
+    echo ". $INSTALL_DIR/root/bin/thisroot.sh" >> /home/linuxbrew/.bash_profile
 
