@@ -16,8 +16,9 @@ ENV LD_LIBRARY_PATH=$INSTALL_DIR/lib64:$INSTALL_DIR/lib64:$LD_LIBRARY_PATH
 USER root
 
 # dependencies for root that cannot be picked up from brew
-RUN apt-get update -y &&\
-    apt-get install -y libx11-dev libxft-dev libxext-dev liblapack-dev
+RUN apt-get update -y &&\    
+    apt-get install -y libx11-dev libxpm-dev libxft-dev libxext-dev libblas-dev liblapack-dev
+
 
 USER linuxbrew
 
@@ -29,13 +30,15 @@ ENV LANG=en_US.UTF-8 \
 
 RUN brew update && brew upgrade
 # Morpho dependencies for options build
-RUN brew install wget vim cmake root
+RUN brew install wget vim cmake python3
 
 # RUN echo ". /home/linuxbrew/.linuxbrew/bin/thisroot.sh" >> ~/.bash_profile
 
-# RUN cd $INSTALL_DIR &&\
-#     wget --quiet https://root.cern/download/root_v6.24.02.Linux-ubuntu20-x86_64-gcc9.3.tar.gz &&\
-#     tar -xzf root_v6.24.02.Linux-ubuntu20-x86_64-gcc9.3.tar.gz &&\
-#     cd $HOME &&\
-#     rm -rf $INSTALL_DIR/root_v6.24.02.Linux-ubuntu20-x86_64-gcc9.3.tar.gz
+RUN cd $INSTALL_DIR &&\
+    wget --quiet https://root.cern/download/root_v6.24.02.Linux-ubuntu20-x86_64-gcc9.3.tar.gz &&\
+    tar -xzf root_v6.24.02.Linux-ubuntu20-x86_64-gcc9.3.tar.gz &&\
+    cd $HOME &&\
+    rm -rf $INSTALL_DIR/root_v6.24.02.Linux-ubuntu20-x86_64-gcc9.3.tar.gz
+
+# RUN echo ". /home/linuxbrew/.linuxbrew/bin/thisroot.sh" >> ~/.bash_profile
 
